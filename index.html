@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaurav Singh - Portfolio</title>
+    <!-- Google Fonts: Inter (main font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /*
+        ------------------------------------------
+        BASE STYLES & BACKGROUND
+        ------------------------------------------
+        */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glow-color-primary: #8A2BE2; /* Blue-Violet */
+            --glow-color-secondary: #ADD8E6; /* Light Blue */
+            --text-color: #f0f0f0;
+            --section-padding: 80px 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* Futuristic Gradient Background */
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /*
+        ------------------------------------------
+        GLASSMORHISM CORE STYLES
+        ------------------------------------------
+        */
+        .glass-container {
+            background: var(--glass-bg);
+            /* CRUCIAL: Frosted Glass Effect */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 1.5rem;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .glass-navbar, .glass-footer {
+            background: rgba(48, 43, 99, 0.5); /* Darker transparent base */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Input and Button Styling */
+        .glass-input, .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--glow-color-primary);
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+            color: var(--text-color);
+        }
+
+        .btn-neon {
+            background-color: var(--glow-color-primary);
+            border: none;
+            color: white;
+            font-weight: 600;
+            /* Neon Glow Effect */
+            box-shadow: 0 0 10px var(--glow-color-primary), 0 0 20px rgba(138, 43, 226, 0.6);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .btn-neon:hover {
+            background-color: var(--glow-color-primary);
+            color: var(--text-color);
+            box-shadow: 0 0 15px var(--glow-color-primary), 0 0 30px var(--glow-color-primary), 0 0 40px rgba(138, 43, 226, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Glowing Card/Element Borders */
+        .glowing-card-hover:hover {
+            border-color: var(--glow-color-secondary) !important;
+            box-shadow: 0 0 10px var(--glow-color-secondary), 0 0 20px rgba(173, 216, 230, 0.4);
+            transform: scale(1.02);
+        }
+        .glowing-card-hover {
+            transition: all 0.4s ease-in-out;
+            border-radius: 1rem;
+        }
+
+        /* Skill Icons */
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--glow-color-secondary);
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .skill-icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 5px var(--glow-color-primary));
+        }
+
+        /* Progress Bars */
+        .progress-bar-glass {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-glass .progress-bar {
+            background: linear-gradient(90deg, var(--glow-color-primary), var(--glow-color-secondary));
+            box-shadow: 0 0 8px rgba(138, 43, 226, 0.7);
+            transition: width 1s ease-in-out;
+        }
+
+        /*
+        ------------------------------------------
+        UTILITY & RESPONSIVENESS
+        ------------------------------------------
+        */
+        .section-hidden {
+            display: none !important;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1050;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            background-color: var(--glow-color-primary);
+            border: none;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+        }
+
+        /* Carousel Indicators for Testimonials */
+        .carousel-indicators [data-bs-target] {
+            background-color: var(--glow-color-primary);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Lazy loading class for opacity fade-in */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        img.lazy.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+    ================================================================
+    NAVIGATION BAR (Transparent Glassy Navbar)
+    ================================================================
+    -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-navbar py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold fs-4" href="#" onclick="showPage('home'); return false;">Gaurav Singh <span class="text-info"></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="#" onclick="showPage('home'); return false;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="#" onclick="showPage('about'); return false;">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="#" onclick="showPage('projects'); return false;">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="#" onclick="showPage('testimonials'); return false;">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-2" href="#" onclick="showPage('contact'); return false;">Contact</a>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-sm btn-neon ms-lg-3" onclick="showPage('contact'); return false;">Hire Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container for SPA -->
+    <main class="pt-5 mt-5">
+
+        <!--
+        ================================================================
+        HOME PAGE (Hero, Skills, Featured Projects, Testimonials CTA)
+        ================================================================
+        -->
+        <section id="home" class="page-section active-page container py-5">
+            <!-- Hero Section -->
+            <div class="row align-items-center py-5">
+                <div class="col-lg-12 text-center">
+                    <div class="glass-container p-5 glowing-card-hover">
+                        <h1 class="display-3 fw-bolder" style="color: var(--glow-color-secondary);">
+                            Hi, I’m <span style="color: var(--glow-color-primary);">Gaurav Singh</span>
+                        </h1>
+                        <h2 class="h3 mb-4 text-info">Website Developer & Freelancer</h2>
+                        <p class="lead mb-5 text-white-50">
+                            Crafting premium, fully responsive web experiences with a focus on clean code and elegant design.
+                        </p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a href="#" class="btn btn-lg btn-neon" onclick="showPage('projects'); return false;">
+                                <i class="fas fa-desktop me-2"></i> View My Work
+                            </a>
+                            <a href="#" class="btn btn-lg glass-button text-white" onclick="showPage('contact'); return false;">
+                                <i class="fas fa-paper-plane me-2"></i> Hire Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="row my-5">
+                <div class="col-12 text-center">
+                    <h3 class="mb-4 text-white-50">Core Stack & Skills</h3>
+                </div>
+                <div class="col-12">
+                    <div class="glass-container p-4">
+                        <div class="row text-center">
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-html5 skill-icon" title="HTML5"></i><small class="d-block mt-2">HTML5</small></div>
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-css3-alt skill-icon" title="CSS3"></i><small class="d-block mt-2">CSS3</small></div>
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-js-square skill-icon" title="JavaScript"></i><small class="d-block mt-2">JavaScript</small></div>
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-php skill-icon" title="PHP"></i><small class="d-block mt-2">PHP</small></div>
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-laravel skill-icon" title="Laravel"></i><small class="d-block mt-2">Laravel</small></div>
+                            <div class="col-4 col-md-2 p-3"><i class="fab fa-wordpress skill-icon" title="WordPress"></i><small class="d-block mt-2">WordPress</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Projects Preview (Using the new links) -->
+            <div class="row my-5">
+                <div class="col-12 text-center">
+                    <h3 class="mb-4 text-white-50">Featured Work</h3>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="glass-container p-3 h-100 glowing-card-hover">
+                        <h5 class="text-info">Invoice Generator</h5>
+                        <p class="small text-white-50">A clean, functional tool for creating and exporting professional invoices instantly.</p>
+                        <span class="badge rounded-pill bg-primary">Vanilla JS</span>
+                        <span class="badge rounded-pill bg-secondary">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="glass-container p-3 h-100 glowing-card-hover">
+                        <h5 class="text-info">EcoWood Works Site</h5>
+                        <p class="small text-white-50">Enjoy delicious, freshly prepared dishes in a cozy atmosphere with exceptional service and taste.
+</p>
+                        <span class="badge rounded-pill bg-success">HTML/CSS</span>
+                        <span class="badge rounded-pill bg-warning text-dark">Responsive</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="glass-container p-3 h-100 glowing-card-hover">
+                        <h5 class="text-info">TasteTown Restaurant</h5>
+                        <p class="small text-white-50">Modern and visually appealing portfolio for a multi-cuisine restaurant.</p>
+                        <span class="badge rounded-pill bg-danger">Portfolio</span>
+                        <span class="badge rounded-pill bg-dark">SEO Optimized</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="glass-container p-3 h-100 glowing-card-hover">
+                        <h5 class="text-info">TechFix Service Site</h5>
+                        <p class="small text-white-50">Shop top-quality electronics at unbeatable prices with fast delivery and reliable customer service.
+</p>
+                        <span class="badge rounded-pill bg-info text-dark">HTML5</span>
+                        <span class="badge rounded-pill bg-light text-dark">JS</span>
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <a href="#" class="btn glass-button text-white" onclick="showPage('projects'); return false;">
+                        See All Projects <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Testimonials Preview Carousel -->
+            <div class="row my-5">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="text-white-50">Client Feedback</h3>
+                </div>
+                <div class="col-lg-8 offset-lg-2">
+                    <div id="testimonialCarousel" class="carousel slide glass-container p-4" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active text-center">
+                                <p class="fst-italic lead">"Gaurav delivered a site that exceeded all expectations. The glassmorphism design is futuristic and polished. Highly recommend!"</p>
+                                <footer class="blockquote-footer text-info mt-3">Jane Doe, CEO of FutureCorp</footer>
+                            </div>
+                            <div class="carousel-item text-center">
+                                <p class="fst-italic lead">"The level of detail in the responsiveness was incredible. It works flawlessly on every device."</p>
+                                <footer class="blockquote-footer text-info mt-3">John Smith, Marketing Director</footer>
+                            </div>
+                            <div class="carousel-item text-center">
+                                <p class="fst-italic lead">"Fast delivery and exceptional communication. Gaurav is a true professional."</p>
+                                <footer class="blockquote-footer text-info mt-3">Sarah Lee, Small Business Owner</footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call-to-Action -->
+            <div class="row my-5">
+                <div class="col-12 text-center">
+                    <div class="glass-container p-5 text-center">
+                        <h3 class="fw-bold mb-4">Let’s Build Something Great Together</h3>
+                        <p class="lead mb-4 text-white-50">Ready to transform your digital presence with a premium web solution?</p>
+                        <a href="#" class="btn btn-lg btn-neon" onclick="showPage('contact'); return false;">Start a Project Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+        ================================================================
+        ABOUT PAGE
+        ================================================================
+        -->
+        <section id="about" class="page-section section-hidden container py-5">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold text-info">About Me</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Profile Card & Introduction -->
+                <div class="col-lg-4 mb-4">
+                    <div class="glass-container p-4 h-100 text-center">
+                        <img src="https://placehold.co/150x150/8A2BE2/ffffff?text=GS" onerror="this.src='https://placehold.co/150x150/8A2BE2/ffffff?text=GS'" class="img-fluid rounded-circle mb-3 border border-4 border-info lazy" alt="Gaurav Singh Profile Photo">
+                        <h4 class="text-white">Gaurav Singh</h4>
+                        <p class="text-white-50">Website Developer</p>
+                        <p class="small">I specialize in creating modern, scalable, and highly aesthetic web applications. My focus is on performance and elegant user experience.</p>
+                        <a href="" class="btn btn-neon mt-3">
+                            <i class="fas fa-download me-2"></i> Hire ME !
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Who I Am & Skills Detail -->
+                <div class="col-lg-8">
+                    <div class="glass-container p-4 mb-4">
+                        <h3 class="mb-3 text-white-50">Who I Am</h3>
+                        <p>I have over 2 years of experience in web development, working mainly with PHP, Laravel, and CodeIgniter. I also use Bootstrap 5 and JavaScript to build modern, responsive websites.</p>
+                        <p>I focus on writing clean and easy-to-manage code, creating user-friendly designs, and making sure every website looks great and works smoothly on all devices.</p>
+                    </div>
+
+                    <!-- Skill Progress Bars -->
+                    <div class="glass-container p-4">
+                        <h3 class="mb-4 text-white-50">Technical Proficiency</h3>
+                        <div class="mb-3">
+                            <label class="form-label">Laravel / PHP <span class="float-end">95%</span></label>
+                            <div class="progress-bar-glass"><div class="progress-bar" style="width: 95%;"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">HTML5 / CSS3 / Bootstrap <span class="float-end">90%</span></label>
+                            <div class="progress-bar-glass"><div class="progress-bar" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">JavaScript <span class="float-end">85%</span></label>
+                            <div class="progress-bar-glass"><div class="progress-bar" style="width: 85%;"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">WordPress Development <span class="float-end">75%</span></label>
+                            <div class="progress-bar-glass"><div class="progress-bar" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education and Experience Timeline -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4 text-white-50 text-center">Timeline</h3>
+                    <div class="glass-container p-4">
+                        <!-- Experience 1 -->
+                        <div class="d-flex mb-4">
+                            <div class="me-4 text-center">
+                                <!-- <i class="fas fa-briefcase fa-2x text-info"></i> -->
+                                <i class="fas fa-code fa-2x text-info"></i>
+                                <div class="small mt-1 text-white-50">2020 - Present</div>
+                            </div>
+                            <div>
+                                <h5 class="text-white">Website Developer</h5>
+                                <p class="mb-1 text-info">As a Freelancer</p>
+                                <p class="small text-white-50">Developed 15+ dynamic websites with a focus on performance, clean design, and seamless user experience.</p>
+                            </div>
+                        </div>
+                        <!-- Experience 2 -->
+                        <div class="d-flex mb-4">
+                            <div class="me-4 text-center">
+                                <!-- <i class="fas fa-code fa-2x text-info"></i> -->
+                                 <i class="fa fa-wordpress fa-2x text-info" ></i>
+                                <div class="small mt-1 text-white-50">2024-2025</div>
+                            </div>
+                            <div>
+                                <h5 class="text-white">WordPress Developer</h5>
+                                <p class="mb-1 text-info">As a Freelancer</p>
+                                <p class="small text-white-50">Specialized in creating responsive WordPress websites with custom themes, jQuery interactivity, and Bootstrap 4 design.</p>
+                            </div>
+                        </div>
+                         <!-- Education -->
+                        <!-- <div class="d-flex">
+                            <div class="me-4 text-center">
+                                <i class="fas fa-graduation-cap fa-2x text-info"></i>
+                                <div class="small mt-1 text-white-50">2014 - 2018</div>
+                            </div>
+                            <div>
+                                <h5 class="text-white">B.Tech in Computer Science</h5>
+                                <p class="mb-1 text-info">Delhi Technological University</p>
+                                <p class="small text-white-50">Graduated with Honors, focused on database systems and web security.</p>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+        ================================================================
+        PROJECTS PAGE (UPDATED WITH LIVE LINKS)
+        ================================================================
+        -->
+        <section id="projects" class="page-section section-hidden container py-5">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold text-info">My Portfolio of Work</h2>
+                    <p class="lead text-white-50">See a selection of web apps, e-commerce solutions, and custom development projects.</p>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <ul class="nav nav-pills d-inline-flex glass-container p-2" id="projectFilter" role="tablist">
+                        <li class="nav-item" role="presentation"><button class="nav-link active btn-neon mx-1" data-filter="all" type="button">All</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link glass-button text-white mx-1" data-filter="web-apps" type="button">Web Apps</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link glass-button text-white mx-1" data-filter="ecommerce" type="button">E-commerce</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link glass-button text-white mx-1" data-filter="portfolios" type="button">Portfolios</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Project Grid -->
+            <div class="row" id="projectGrid">
+                <!-- Project Card 1: Invoice Generator (Web App) -->
+                <div class="col-md-6 col-lg-4 mb-4 project-item web-apps">
+                    <div class="glass-container p-4 h-100 glowing-card-hover">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.0hm6d_96lCdxyzoBB36bzwHaFF?pid=Api&P=0&h=180https://tse4.mm.bing.net/th/id/OIP.0hm6d_96lCdxyzoBB36bzwHaFF?pid=Api&P=0&h=180" onerror="this.src='https://placehold.co/600x400/302b63/ffffff?text=Invoice+Generator'" class="img-fluid rounded-3 mb-3 lazy" alt="Project 1: Invoice Generator">
+                        <h4 class="text-white">Invoice Generator</h4>
+                        <p class="small text-white-50">A clean, functional tool for creating and exporting professional invoices instantly.</p>
+                        <div class="mt-3">
+                            <a href="https://764tlt.csb.app/" target="_blank" class="btn btn-sm btn-neon">
+                                <i class="fas fa-external-link-alt me-1"></i> View Live Site
+                            </a>
+                        </div>
+                        <span class="badge rounded-pill bg-primary mt-3">HTML</span>
+                        <span class="badge rounded-pill bg-warning text-dark mt-3">Bootstrap</span>
+                        <span class="badge rounded-pill bg-success mt-3">CSS</span>
+                        <span class="badge rounded-pill bg-info text-dark mt-3">Responsive</span>
+                        <span class="badge rounded-pill bg-light text-dark mt-3">CSS</span>
+                        <span class="badge rounded-pill bg-dark mt-3">Bootstrap</span>
+                            <span class="badge rounded-pill bg-warning text-dark text-dark mt-3">Java Script</span>
+                    </div>
+                </div>
+                 <!-- Project Card 2: EcoWood Works Showcase (E-commerce) -->
+                <div class="col-md-6 col-lg-4 mb-4 project-item ecommerce">
+                    <div class="glass-container p-4 h-100 glowing-card-hover">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.M1F6wRp6JuCU0t8Bmz41qQHaFj?pid=Api&P=0&h=180https://tse4.mm.bing.net/th/id/OIP.M1F6wRp6JuCU0t8Bmz41qQHaFj?pid=Api&P=0&h=180" onerror="this.src='https://placehold.co/600x400/302b63/ffffff?text=EcoWood+Works'" class="img-fluid rounded-3 mb-3 lazy" alt="Project 2: EcoWood Works">
+                        <h4 class="text-white">EcoWood Works Showcase</h4>
+                        <p class="small text-white-50">Discover stylish, high-quality furniture that enhances comfort, beauty, and functionality in every space.
+</p>
+                         <div class="mt-3">
+                            <a href="https://zrs562.csb.app/" target="_blank" class="btn btn-sm btn-neon">
+                                <i class="fas fa-external-link-alt me-1"></i> View Live Site
+                            </a>
+                        </div>
+                        <span class="badge rounded-pill bg-success mt-3">HTML/CSS</span>
+                        <span class="badge rounded-pill bg-info text-dark mt-3">Responsive</span>
+                        <span class="badge rounded-pill bg-light text-dark mt-3">CSS</span>
+                        <span class="badge rounded-pill bg-dark mt-3">Bootstrap</span>
+                            <span class="badge rounded-pill bg-warning text-dark text-dark mt-3">Java Script</span>
+
+                    </div>
+                </div>
+                <!-- Project Card 3: TasteTown Restaurant (Portfolio) -->
+                <div class="col-md-6 col-lg-4 mb-4 project-item portfolios">
+                    <div class="glass-container p-4 h-100 glowing-card-hover">
+                        <img src="https://tse2.mm.bing.net/th/id/OIP.fC74FQ0b0lKExRAFApM89AHaFF?pid=Api&P=0&h=180 https://tse2.mm.bing.net/th/id/OIP.fC74FQ0b0lKExRAFApM89AHaFF?pid=Api&P=0&h=180" onerror="this.src='https://placehold.co/600x400/302b63/ffffff?text=TasteTown'" class="img-fluid rounded-3 mb-3 lazy" alt="Project 3: TasteTown Restaurant">
+                        <h4 class="text-white">TasteTown Restaurant</h4>
+                        <p class="small text-white-50">Enjoy delicious, freshly prepared dishes in a cozy atmosphere with exceptional service and taste.
+</p>
+                        <div class="mt-3">
+                            <a href="https://fx59ps.csb.app/" target="_blank" class="btn btn-sm btn-neon">
+                                <i class="fas fa-external-link-alt me-1"></i> View Live Site
+                            </a>
+                        </div>
+                        <span class="badge rounded-pill bg-danger mt-3">Portfolio</span>
+                        <span class="badge rounded-pill bg-secondary mt-3">SEO Optimized</span>
+                        <span class="badge rounded-pill bg-primary mt-3">HTML5</span>
+                        <span class="badge rounded-pill bg-light text-dark mt-3">CSS</span>
+                        <span class="badge rounded-pill bg-success text-dark mt-3">Bootstrap</span>
+                        <span class="badge rounded-pill bg-dark mt-3">HTML5</span>
+                        <span class="badge rounded-pill bg-info text-dark text-dark mt-3">Responsive</span>
+                        <span class="badge rounded-pill bg-warning text-dark text-dark mt-3">Java Script</span>
+
+                    </div>
+                </div>
+                <!-- Project Card 4: TechFix Service Site (Web App) -->
+                <div class="col-md-6 col-lg-4 mb-4 project-item web-apps">
+                    <div class="glass-container p-4 h-100 glowing-card-hover">
+                        <img src="https://tse3.mm.bing.net/th/id/OIP.tJuuTZNzN4R0lInlZIYA_AHaE8?pid=Api&P=0&h=180https://tse3.mm.bing.net/th/id/OIP.tJuuTZNzN4R0lInlZIYA_AHaE8?pid=Api&P=0&h=180" onerror="this.src='https://placehold.co/600x400/302b63/ffffff?text=TechFix+Service'" class="img-fluid rounded-3 mb-3 lazy" alt="Project 4: TechFix Service Site">
+                        <h4 class="text-white">TechFix Service Site</h4>
+                        <p class="small text-white-50">Shop top-quality electronics at unbeatable prices with fast delivery and reliable customer service.
+</p>
+                        <div class="mt-3">
+                            <a href="https://3wt9t3.csb.app/" target="_blank" class="btn btn-sm btn-neon">
+                                <i class="fas fa-external-link-alt me-1"></i> View Live Site
+                            </a>
+                        </div>
+                        <span class="badge rounded-pill bg-primary mt-3">HTML5</span>
+                        <span class="badge rounded-pill bg-light text-dark mt-3">CSS</span>
+                        <span class="badge rounded-pill bg-success text-dark mt-3">Bootstrap</span>
+                        <span class="badge rounded-pill bg-dark mt-3">HTML5</span>
+                        <span class="badge rounded-pill bg-info text-dark text-dark mt-3">Responsive</span>
+                        <span class="badge rounded-pill bg-warning text-dark text-dark mt-3">Java Script</span>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+        ================================================================
+        TESTIMONIALS PAGE
+        ================================================================
+        -->
+        <section id="testimonials" class="page-section section-hidden container py-5">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold text-info">What My Clients Say</h2>
+                    <p class="lead text-white-50">Trusted by startups and established businesses alike for quality web development.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div id="fullTestimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Testimonial 1 -->
+                            <div class="carousel-item active">
+                                <div class="glass-container p-5 text-center">
+                                    <i class="fas fa-quote-left fa-2x mb-3 text-info"></i>
+                                    <p class="lead fst-italic">"The glassmorphism theme was executed flawlessly. It gives our brand a cutting-edge look that immediately impressed our investors."</p>
+                                    <img src="https://placehold.co/70x70/ADD8E6/0f0c29?text=AS" onerror="this.src='https://placehold.co/70x70/ADD8E6/0f0c29?text=JD'" class="rounded-circle mt-4 lazy" alt="Client 1">
+                                    <h5 class="mt-2 mb-0">Abhishek Sharma</h5>
+                                    <small class="text-white-50">CEO, FutureTech</small>
+                                </div>
+                            </div>
+                            <!-- Testimonial 2 -->
+                            <div class="carousel-item">
+                                <div class="glass-container p-5 text-center">
+                                    <i class="fas fa-quote-left fa-2x mb-3 text-info"></i>
+                                    <p class="lead fst-italic">"Gaurav's attention to detail, especially in mobile responsiveness, is unmatched. The site is fast, fluid, and a pleasure to use."</p>
+                                    <img src="https://placehold.co/70x70/ADD8E6/0f0c29?text=RS" onerror="this.src='https://placehold.co/70x70/ADD8E6/0f0c29?text=AS'" class="rounded-circle mt-4 lazy" alt="Client 2">
+                                    <h5 class="mt-2 mb-0">Rohit Singh</h5>
+                                    <small class="text-white-50">Founder, Startup Central</small>
+                                </div>
+                            </div>
+                             <!-- Testimonial 3 -->
+                            <div class="carousel-item">
+                                <div class="glass-container p-5 text-center">
+                                    <i class="fas fa-quote-left fa-2x mb-3 text-info"></i>
+                                    <p class="lead fst-italic">"From initial concept to final deployment, the process was smooth and professional. Highly recommended for complex backend needs."</p>
+                                    <img src="https://placehold.co/70x70/ADD8E6/0f0c29?text=AV" onerror="this.src='https://placehold.co/70x70/ADD8E6/0f0c29?text=MT'" class="rounded-circle mt-4 lazy" alt="Client 3">
+                                    <h5 class="mt-2 mb-0">Aditi Verma </h5>
+                                    <small class="text-white-50">Product Manager, Global Corp</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#fullTestimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#fullTestimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--
+        ================================================================
+        CONTACT PAGE
+        ================================================================
+        -->
+        <section id="contact" class="page-section section-hidden container py-5">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold text-info">Get In Touch</h2>
+                    <p class="lead text-white-50">I am available for freelance work and new opportunities.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Direct Contact Details (Left Column) -->
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="glass-container p-4 h-100">
+                        <h3 class="mb-4 text-info">Direct Contact</h3>
+
+                        <!-- Email -->
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-envelope fa-2x me-3" style="color: var(--glow-color-secondary);"></i>
+                            <div>
+                                <small class="text-white-50 d-block">Email</small>
+                                <a href="mailto:gaurav.dev@example.com" class="text-white text-decoration-none">gauravwebdev000@gmail.com</a>
+                            </div>
+                        </div>
+                        <hr class="text-white-50 my-3">
+
+                        <!-- Phone -->
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-phone-alt fa-2x me-3" style="color: var(--glow-color-secondary);"></i>
+                            <div>
+                                <small class="text-white-50 d-block">Phone</small>
+                                <a href="tel:+919876543210" class="text-white text-decoration-none">+91 6390093183</a>
+                            </div>
+                        </div>
+                        <hr class="text-white-50 my-3">
+
+                        <!-- WhatsApp -->
+                        <div class="d-flex align-items-center mb-3">
+                            <!-- Custom styling for a vibrant WhatsApp icon -->
+                            <i class="fab fa-whatsapp fa-2x me-3" style="color: #25D366; filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.7));"></i>
+                            <div>
+                                <small class="text-white-50 d-block">WhatsApp</small>
+                                <a href="https://wa.me/916390093182" target="_blank" class="text-white text-decoration-none">+91 6390093183 (Click to Chat)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embedded Google Map (Right Column) -->
+                <div class="col-lg-7">
+                    <div class="glass-container p-3 h-100">
+                        <h3 class="mb-3 text-white-50">My Working Base (India)</h3>
+                        <div class="ratio ratio-16x9">
+                            <iframe
+                                class="rounded-3"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113996.16666690403!2d81.65759714856034!3d25.402324915669787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3985392f03f75727%3A0x6b801a6b0c2a5501!2sPrayagraj%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!--
+    ================================================================
+    FOOTER
+    ================================================================
+    -->
+    <footer class="glass-footer py-4 mt-5">
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <!-- Short Bio -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-info">Gaurav Singh Dev</h5>
+                    <p class="small text-white-50">Crafting modern websites that inspire and perform at the highest level.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white-50">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('home'); return false;">Home</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('about'); return false;">About</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('projects'); return false;">Projects</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('contact'); return false;">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="col-md-4 mb-3 text-center text-md-end">
+                    <h5 class="text-white-50">Connect</h5>
+                    <a href="#" class="text-white mx-2 fs-4" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-white mx-2 fs-4" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-white mx-2 fs-4" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white mx-2 fs-4" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <hr class="text-white-50 my-2">
+            <div class="text-center small text-white-50 mt-3">
+                Copyright &copy; 2025 Gaurav Singh. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" id="scrollTopBtn" class="btn scroll-top-btn" title="Go to top">
+        <i class="fas fa-arrow-up text-white"></i>
+    </button>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--
+    ================================================================
+    JAVASCRIPT FOR INTERACTIVITY & SPA SIMULATION
+    ================================================================
+    -->
+    <script>
+        // Store all page sections
+        const pageSections = document.querySelectorAll('.page-section');
+        const filterButtons = document.querySelectorAll('#projectFilter button');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        // --- 1. SPA Navigation Logic (Show/Hide Sections + Mobile Collapse Fix) ---
+        function showPage(pageId) {
+            // 1a. Show/Hide section logic
+            pageSections.forEach(section => {
+                if (section.id === pageId) {
+                    section.classList.remove('section-hidden');
+                    // Simple animation: fade-in effect on page switch
+                    section.style.opacity = 0;
+                    setTimeout(() => {
+                        section.style.transition = 'opacity 0.6s ease';
+                        section.style.opacity = 1;
+                    }, 50);
+                } else {
+                    section.classList.add('section-hidden');
+                    section.style.opacity = 0;
+                }
+            });
+
+            // 1b. Mobile Navigation Collapse Fix
+            const navbarCollapseElement = document.getElementById('navbarNav');
+            // Check if the menu is open ('show' class added by Bootstrap when collapsed)
+            if (navbarCollapseElement.classList.contains('show')) {
+                // Get or create the Bootstrap Collapse instance
+                let bsCollapse = bootstrap.Collapse.getInstance(navbarCollapseElement);
+                if (!bsCollapse) {
+                    // Instantiate the collapse object if it doesn't exist
+                    bsCollapse = new bootstrap.Collapse(navbarCollapseElement, { toggle: false });
+                }
+                // Close the menu
+                bsCollapse.hide();
+            }
+
+            // 1c. Scroll to Top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 2. Project Filtering Logic ---
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+
+                // Update active button state
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('btn-neon', 'active');
+                    btn.classList.add('glass-button', 'text-white');
+                });
+                button.classList.add('btn-neon', 'active');
+                button.classList.remove('glass-button', 'text-white');
+
+                // Filter items
+                document.querySelectorAll('.project-item').forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = 1, 10);
+                    } else {
+                        item.style.opacity = 0;
+                        setTimeout(() => item.style.display = 'none', 300); // Hide after fade out
+                    }
+                });
+            });
+        });
+
+
+        // --- 3. Scroll-to-Top Button Visibility ---
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 4. Lazy Loading for Images ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll('img.lazy');
+
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            // Simulate image loading (as we use placeholders)
+                            lazyImage.classList.add('loaded');
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                }, { rootMargin: "0px 0px 50px 0px" }); // Load when 50px away
+
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                // Fallback for older browsers: load all immediately
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImage.classList.add('loaded');
+                });
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure only home is visible on initial load
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
